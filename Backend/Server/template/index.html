@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SSORT: Semantic Segmentation for Off-Road Traversibility</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 10px;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .upload {
+      flex-basis: 45%;
+    }
+    .output {
+      flex-basis: 45%;
+    }
+    .button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    #image-preview {
+      max-width: 100%;
+      max-height: 400px;
+      margin-bottom: 20px;
+    }
+    #output-image {
+      max-width: 100%;
+      max-height: 400px;
+    }
+    .clear-button {
+      background-color: #f44336;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body style="display: flex; flex-direction: row;">  <div class="container">
+    <h1>SSORT: Semantic Segmentation for Off-Road Traversibility</h1>
+    <form action="http://127.0.0.1:5000/segment" method="post" enctype="multipart/form-data" class="upload">
+      <h2>Upload Image</h2>
+      <input type="file" name="image" accept="image/*" onchange="previewImage(event)">
+      <br>
+      <img id="image-preview">
+      <br>
+      <button class="button" type="submit">Predict</button>
+      <button class="clear-button" type="button" onclick="clearImage()">Clear</button>
+    </form>
+    <div class="output">
+      <h2>Output</h2>
+      <img id="output-image">
+    </div>
+  </div>
+  <script>
+    function previewImage(event) {
+      var reader = new FileReader();
+      reader.onload = function() {
+        var output = document.getElementById('image-preview');
+        output.src = reader.result;
+      }
+      reader.readAsDataURL(event.target.files[0]);
+    }
+    function clearImage() {
+      var input = document.querySelector('input[type=file]');
+      input.value = "";
+      var preview = document.getElementById('image-preview');
+      preview.src = "";
+    }
+  </script>
+</body>
+</html>
